@@ -1,0 +1,126 @@
+<html> <head> <title> WomeninCSGame</title>
+<style>
+	div
+	{
+	text-align: center;
+		color: yellow;
+	}
+	h3
+	{
+		text-align: center;
+		color: yellow;
+	}
+	h1
+	{
+		text-align: center;
+		color: yellow;
+	}
+
+	body
+	{		
+		background-size: cover;
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-attachment:fixed;
+	}	</style>
+</head>
+<body onload = "loaded()" background = "2.WomenInCSBackground.jpeg ";>
+	<a name = 30wogrammers>
+	<h1> Name 30 Influential Female Computer Science Professionals!	</h1>
+	<h3> 
+		Your challenge, should you choose to accept it, is to name 30 Influential Female Computer Professionals correctly. <br> <br>
+	</h3>
+	
+	<div>
+		This message will self-destruct in <span id="timer">05:00<span> minutes. 
+	</div>
+
+	<div>
+		<BUTTON id = "begin" type = button onclick = "beginmygame()" ACCESSKEY = "t"> <U>Start!</U></BUTTON>
+		<br><p></p>
+
+		<INPUT type= "text" name = "mytext" id = txtAnswer onkeydown = "if (event.keyCode == 13) { document.getElementById('submit').click();};" >
+		
+		<BUTTON	id = "submit" type = button accessKey = s onclick = "submission()" > <U>Submit!</U> </BUTTON>
+	</div>
+	<p> </p>
+	<div id = "past"> Answered: </div>
+
+		<script type = "text/javascript" >
+	var display = 0;
+	var Timer;
+	var seconds;
+	var answers = new Array();
+	var missed = new String();
+	var solutions = new Array("Ada Lovelace","Ria Galanos", "Edith Clarke","Hedy Lamarr", "Grace Hopper", "Kay McNulty", "Betty Snyder", "Marlyn Wescoff", "Ruth Lichterman", "Betty Jennings", "Fran Bilas", "Mary K. Hawes", "Jean Sammet", "Frances Allen","Betty Holberton","Mary Kenneth Keller", "Erna Schneider Hoover","Karen Sparck Jones", "Sophie Wilson", "Carla Meninsky", "Roberta Williams", "Carol Shaw","Radia Perlman","Jean Bartik","Jocelyn Goldfein","Anita Borg", "Maria Klawe", "Mary Lou Jespen", "Carly Fiorina", "Lucy Sanders","Padmasree Warrior","Meg Whitman", "Eva Tardos", "Megan Smith") //33 names
+	
+	function loaded()//DONE
+	{
+		alert("Welcome! :) ");
+	}
+		var hou = 4;
+  		var sec = 60;	
+  		var timetotal = 300;
+  		var refreshID;	
+	function beginmygame()//BROKEN :()
+	{
+		document.getElementById("txtAnswer").focus();
+
+       	refreshID = setInterval(function(){
+    	var a = new Date();
+        document.getElementById("timer").innerHTML = hou +" : " + sec ;
+        sec--;
+        timetotal--;
+        if(sec == 00)
+        {
+            hou--;
+            sec = 60;
+            if (timetotal == 0)
+            {
+            	setTimeout("timerFired()", 00);
+            }
+        }
+        },1000);
+	}
+
+	function timerFired()//DONE
+	{
+		alert("Time is Up!")
+		if(answers.length > 29)
+			alert("congrats! you won!")
+		else
+		{
+			alert("sorry you lost.")
+			for(num = 0; num < solutions.length; num++)
+			{
+				if(answers.indexOf(solutions[num]) > -1) {}
+				else{missed += solutions[num] + "\n";}
+			}
+			alert("You missed the following answers: " + missed +"\n Better Luck Next Time!")
+			window.clearInterval(refreshID);
+		}	
+	}
+	function submission() //WORKING
+	{
+		var elem = document.getElementById("txtAnswer");
+		if(answers.indexOf(elem.value) > -1)
+			{
+				window.alert("You've already submitted this person! Name someone else")
+				document.getElementById("txtAnswer").value = "";
+			}
+		else if(solutions.indexOf(elem.value) < 0)
+			{
+				window.alert("this is not a valid answer- did you spell her name right?");
+				document.getElementById("txtAnswer").value = "";
+			}
+		else
+			{
+				answers[display]=elem.value;
+				display++;
+				document.getElementById("txtAnswer").value = "";
+				document.getElementById('past').innerHTML += answers[display-1]+ ",";
+			}
+	}
+	</script>
+</body>
+</html>

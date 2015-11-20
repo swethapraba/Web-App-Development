@@ -1,0 +1,29 @@
+h1{
+	text-align: center;
+}
+h4{
+	text-align:center;
+}
+body{
+	color: pink;
+	background-color: black;
+}
+div{
+	max-width:200px;
+	max-height:400px;
+	table-style: text-align:center;
+	text-align: center;
+	padding-left:525px;
+	padding-bottom:50px;
+}
+pre{
+	text-align: center;
+}
+span{
+	text-align: center;
+	padding-left:400px;
+}
+a{
+	color:green;
+	text-align: center;
+}

@@ -1,0 +1,339 @@
+<html>
+<head>
+<title> Canvas Second Page </title>
+	<style>
+	body
+	{
+		background-color: #7FFFD4;
+	}
+	h1
+	{
+	text-align: center;
+	color: green;}
+	p{
+	text-align: center;
+	color: blue;}
+	canvas {
+    border: 1px solid purple;
+    background-color: white; }
+	div
+	{
+		text-align: center;
+	}
+	</style>
+</head>
+<body>
+	<a name = "firstCanvas"></a>
+	<h1> Welcome to the Canvas!</h1>
+	<p> Click on the canvas to make a dot :) Hold the Command (Apple) Key on Macs and Control Key on Windows to add to selections- you must press the key the entire time you are clicking and dragging! </p>
+	<div> <button id = "clear" type = button onclick = "clearme()" ACCESSKEY = "a"> Cle<U>a</U>r My Canvas</button> </div>
+	<canvas style="margin:0;padding:0;position:relative;left:50px;top:50px;" id="canvas" width="1100" height="400" onclick = "draw(event)" ></canvas>	
+	<script>
+	/*
+	1. Create Dot, Hold ctrl and make new selection , last dot must stay in
+	*/
+		var canvas = document.getElementById('canvas'), ctx = canvas.getContext('2d'),rect = {}, drag = false; 
+		var dotarray = [], tochange = [], shift = false, dragged = false, lastactiondot = false;
+    function init() {
+  			canvas.addEventListener('mousedown', mouseDown, false);
+  			canvas.addEventListener('mouseup', mouseUp, false);
+  			canvas.addEventListener('mousemove', mouseMove, false);}
+		function mouseDown(e) 
+		{
+			rect.startX = e.pageX - this.offsetLeft;
+			rect.startY = e.pageY - this.offsetTop;
+			drag = true;
+		}
+		function mouseUp() 
+		{
+			drag = false;
+			finddots();	
+			rect = {};
+		}
+		document.body.onmousedown = function (e) 
+		{
+  		 	if (e.ctrlKey || e.metaKey) //shift windows code = 16 . shift mac code = shiftKey
+  		 	{
+      			shift = true;
+      			console.log("ctrl is true onclick")		
+					if(lastactiondot)
+					{
+						tochange.push(dotarray[dotarray.length-1])
+						console.log("last dot added")
+					}
+  			}
+  			else
+  			{
+  				shift = false;
+  				tochange = [];
+  			}
+  		}
+		function mouseMove(e) 
+		{
+			var x, y; var random = false;
+			if(drag) 
+			{
+				dragged = true;
+				lastactiondot = false;
+				rect.w = (e.pageX - this.offsetLeft) - rect.startX;
+				rect.h = (e.pageY - this.offsetTop) - rect.startY ;
+							ctx.setLineDash([6]);
+				ctx.clearRect(0,0,canvas.width,canvas.height);
+				ctx.strokeRect(rect.startX, rect.startY, rect.w, rect.h);
+				var i;
+				for(i = 0; i < dotarray.length; i++)
+				{
+						var pos = dotarray[i];
+						posx = pos.xpos;
+    				posy = pos.ypos;
+    				if(tochange.indexOf(dotarray[i]) > -1)
+    				{
+    					var posx = dotarray[i].xpos;
+    					var posy = dotarray[i].ypos;
+   			 			ctx.fillStyle = "#0000FF";
+    					ctx.beginPath();
+    					ctx.arc(posx, posy, 10, 0, 2 * Math.PI);
+    					ctx.fill();
+    				}
+    				else
+    				{
+    					ctx.fillStyle = "#8A2BE2";
+    					ctx.beginPath();
+    					ctx.arc(posx, posy, 10, 0, 2 * Math.PI);
+    					ctx.fill();
+    				}
+				}
+
+
+			}
+		}
+		
+		function finddots()
+		{
+			var a;
+			var backup = tochange.slice(0);
+			if(shift == true)
+			{
+				if(lastactiondot)
+				{
+					tochange.push(dotarray[dotarray.length-1])
+					console.log("last dot added")
+				}
+				for(a = 0; a <= dotarray.length; a++)
+				{
+				if(dotarray[a].pos.x >= rect.startX && dotarray[a].pos.x <=(rect.startX + rect.w) && dotarray[a].ypos >= rect.startY && dotarray[a].ypos <= (rect.startY + rect.h)) 
+				{ // if yes push you onto the change array
+					tochange.push(dotarray[a]);
+					//change the color to the second color
+					tochange[tochange.length-1].togglecolor = true;
+					//because i am desperate:
+					var i;
+					for(i = 0; i < dotarray.length; i++)
+					{
+						var pos = dotarray[i];
+						posx = pos.xpos;
+    					posy = pos.ypos;
+    					if(tochange.indexOf(dotarray[i]) > -1)
+    					{
+	    					var posx = dotarray[a].xpos;
+	    					var posy = dotarray[a].ypos;
+   				 			ctx.fillStyle = "#0000FF";
+    						ctx.beginPath();
+    						ctx.arc(posx, posy, 10, 0, 2 * Math.PI);
+    						ctx.fill();
+    					}
+    					else
+    					{
+    						ctx.fillStyle = "#8A2BE2";
+    						ctx.beginPath();
+    						ctx.arc(posx, posy, 10, 0, 2 * Math.PI);
+    						ctx.fill();
+    					}
+					}	
+				}
+				else //if you're not inside the current rectangle
+				{
+					if(shift == false)//if control is not pressed (so just new selections have to be done)
+					{
+						dotarray[a].color = "#8A2BE2"; //reset the old color just to be safe
+						dotarray[a].togglecolor = false;
+					}
+					else if (shift== true)//if we're adding on to the old section
+					{
+						if(backup.indexOf(dotarray[a]) > -1)//if this dot was a part of the old selection
+						{
+							tochange.push(dotarray[a]);//add it to this one set
+							dotarray[a].color = "#0000FF";//double check that the color is correctly blue
+							tochange[tochange.length-1].color = "#0000FF";
+						}
+					}
+				}
+			}
+		}
+			else
+			{
+				ctx.clearRect(0,0,canvas.width,canvas.height);
+				for(i = 0; i < dotarray.length; i++)
+				{
+					var pos = dotarray[i];
+					posx = pos.xpos;
+    				posy = pos.ypos;
+    				ctx.fillStyle = "#8A2BE2";
+    				ctx.beginPath();
+    				ctx.arc(posx, posy, 10, 0, 2 * Math.PI);
+    				ctx.fill();	
+  				}
+  				
+  				tochange = [];
+  				for(a = 0; a <= dotarray.length; a++)
+				{//are you within the rectangle boundaries
+				if(dotarray[a].pos.x > rect.startX && dotarray[a].pos.x < (rect.startX + rect.w) && dotarray[a].ypos > rect.startY && dotarray[a].ypos < (rect.startY + rect.h)) 
+				{ // if yes push you onto the change array
+					tochange.push(dotarray[a]);
+					//change the color to the second color
+					tochange[tochange.length-1].color = "#0000FF";
+					tochange[tochange.length-1].togglecolor = true;
+					tochange[tochange.length-1].drawme();
+					//because i am desperate:
+					var i;
+					for(i = 0; i < dotarray.length; i++)
+					{
+							var pos = dotarray[i];
+							posx = pos.xpos;
+    					posy = pos.ypos;
+    					if(tochange.indexOf(dotarray[i]) > -1)
+    					{
+    						var posx = dotarray[a].xpos;
+    						var posy = dotarray[a].ypos;
+   			 				ctx.fillStyle = "#0000FF";
+    						ctx.beginPath();
+    						ctx.arc(posx, posy, 10, 0, 2 * Math.PI);
+    						ctx.fill();
+    					}
+    					else
+    					{
+    						ctx.fillStyle = "#8A2BE2";
+    						ctx.beginPath();
+    						ctx.arc(posx, posy, 10, 0, 2 * Math.PI);
+    						ctx.fill();
+    					}
+					}	
+				}
+				else //if you're not inside the current rectangle
+				{
+					if(shift == false)//if control is not pressed (so just new selections have to be done)
+					{
+						dotarray[a].color = "#8A2BE2"; //reset the old color just to be safe
+						dotarray[a].togglecolor = false;
+					}
+					else if (shift== true)//if we're adding on to the old section
+					{
+						if(backup.indexOf(dotarray[a]) > -1)//if this dot was a part of the old selection
+						{
+							tochange.push(dotarray[a]);//add it to this one set
+							dotarray[a].color = "#0000FF";//double check that the color is correctly blue
+							tochange[tochange.length-1].color = "#0000FF";
+						}
+					}}
+				}
+			}
+			shift = false;
+			rect = {};
+		}
+		
+		function Dot (e)
+		{
+			this.color = "#8A2BE2";
+			this.pos = getMousePosition(e);
+			this.xpos = this.pos.x;
+			this.ypos = this.pos.y;
+			this.radius = 10;
+			this.first = false;
+			this.drawme = function ()
+			{
+    			posx = this.xpos;
+    			posy = this.ypos;
+   			 	ctx.fillStyle = "#8A2BE2";
+    			ctx.beginPath();
+    			ctx.arc(posx, posy, 10, 0, 2 * Math.PI);
+    			ctx.fill();
+			}
+			this.togglecolor = false;
+		}
+		function getMousePosition(evt) 
+		{
+    		var rect = canvas.getBoundingClientRect();
+    		return {
+    	  		x: evt.clientX - rect.left,
+    	  		y: evt.clientY - rect.top
+    		};
+		}	
+		function draw(e) 
+		{
+			rect = {};
+			if(!dragged)
+			{
+				var dots = new Dot(e);
+				dotarray.push(dots);
+				lastactiondot = true;
+				
+				if(shift == true && lastactiondot == true)
+				{
+					tochange.push(dots);
+				}
+				else
+				{
+					tochange = [];
+				}
+			}
+			var i;
+			for(i = 0; i < dotarray.length; i++)				
+			{
+				var pos = dotarray[i];
+				posx = pos.xpos;
+   				posy = pos.ypos;
+   				if(tochange.indexOf(dotarray[i]) > -1)
+   				{
+	   				var posx = dotarray[i].xpos;
+   					var posy = dotarray[i].ypos;
+   			 		ctx.fillStyle = "#0000FF";
+    				ctx.beginPath();
+    				ctx.arc(posx, posy, 10, 0, 2 * Math.PI);
+    				ctx.fill();
+   				}
+   				else if(i == dotarray.length-1 && dotarray[dotarray.length-1].first == false)
+    			{
+    				//alert("last dot")
+    				var pos = dotarray[dotarray.length-1];
+					posx = pos.xpos;
+   					posy = pos.ypos;
+    				ctx.fillStyle = "#0000FF";
+    				ctx.beginPath();
+   					ctx.arc(posx, posy, 10, 0, 2 * Math.PI);
+   					ctx.fill();
+   					dotarray[dotarray.length-1].first = true;
+    			}
+    			
+    			else
+   				{
+   					ctx.fillStyle = "#8A2BE2";
+   					ctx.beginPath();    	
+   					ctx.arc(posx, posy, 10, 0, 2 * Math.PI);
+    				ctx.fill();
+    			}
+    		}	
+    		dragged = false;
+		}
+		function clearme() 
+		{
+			ctx.clearRect(0,0,canvas.width,canvas.height); 
+			tochange = [];
+			backup = [];
+			dotarray = [];
+			rect = {};
+		}
+		init();
+		//window.draw = draw;	
+	</script>
+</body>
+</html>

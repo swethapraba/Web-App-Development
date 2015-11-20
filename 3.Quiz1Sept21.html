@@ -1,0 +1,61 @@
+<html>
+<head>
+<title> GPA Calculator </title>
+<style>
+table, th, td {
+border: 1px solid black;
+}
+</style>
+</head>
+
+<body onload = "sayHello()" bgcolor = "#CCFF66" onchange = "calculate()">
+<a name = "GPACalculator">
+<script type = "text/javascript" >
+
+function sayHello()
+{
+alert("Welcome to the GPA Calculator.")
+}
+
+function calculate()
+{
+var o = document.getElementById("q1");
+var t = document.getElementById("q2");
+
+var gpa = parseInt(o.options[o.selectedIndex].value) +
+		  parseInt(t.options[t.selectedIndex].value);
+
+gpa = gpa/2.0;
+
+document.getElementById("grade").innerHTML = gpa;
+}
+
+</script>
+
+<table>
+<tr> <td> <pre> GPA: </pre> </td> 
+     <td> <p id = "grade"> <p> </td> </tr>
+
+<tr> <td><pre> Quarter 1: </pre>  </td>
+     <td>  <select id = "q1">
+	   <option value = "4" > A </option>
+	   <option value = "3" > B </option>
+	   <option value = "2" > C </option>
+	   <option value = "1" > D </option>
+	   <option value = "0" > F </option>
+ </select> </td> </tr>
+
+<tr> <td> <pre> Quarter 2: </pre> </td>
+     <td> <select id = "q2" > 
+
+	   <option value = "4" > A </option>
+	   <option value = "3" > B </option>
+	   <option value = "2" > C </option>
+	   <option value = "1" > D </option>
+	   <option value = "0" > F </option>
+	</select> </td> </tr>
+
+</table>
+</body>
+
+</html>
