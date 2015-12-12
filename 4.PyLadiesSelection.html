@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <base href = "http://www.pyladies.com/">
+    <title>PyLadies &ndash; Women Who Love Coding in Python</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <link rel="stylesheet" href="/assets/css/pygments.css" media="screen" title="screen"/>
+    <link rel="stylesheet" href="/assets/css/screen.css" media="screen" title="screen"/>
+    <link rel="stylesheet" href="/assets/css/mailchimp.css" media="screen" title="screen"/>
+    <link href='http://fonts.googleapis.com/css?family=Glegoo|Bitter|Droid+Serif:400,700,400italic,700italic|Raleway:400,200,300,500,600,700' rel='stylesheet' type='text/css'/>
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/ico" />
+    <link rel="alternate" type="application/atom+xml" title="Atom 1.0" href="http://pyladies.com/feed.xml" />
+    
+    <script type = "text/javascript">
+    //var last = document.getElementById("homepage_h1");
+    window.onload= function()
+    {
+        DisableEnableLinks(true);
+    }
+
+    document.addEventListener('click', function(f)
+    {
+        var elems = document.getElementsByTagName("*");
+        var e;
+        for(e = 0; e < elems.length ; e++)
+        {
+            elems[e].style.outline = "none";
+        }
+        f.target.style.outline = "solid blue 2px";
+    })
+
+    function DisableEnableLinks(xHow)
+    {
+        //alert("hello"); //test to see if site is loading properly
+        objLinks = document.links;
+        for(i=0;i<objLinks.length;i++)
+        {
+            objLinks[i].disabled = xHow;
+    
+            //link with onclick
+            if(objLinks[i].onclick && xHow)
+            {  
+                objLinks[i].onclick = new Function("return false;" + objLinks[i].onclick.toString().getFuncBody());
+            }
+        
+            //link without onclick
+            else if(xHow)
+            {  
+            objLinks[i].onclick = function(){return false;}
+            }
+        
+            //remove return false with link without onclick
+    
+            else if(!xHow && objLinks[i].onclick.toString().indexOf("function(){return false;}") != -1)
+            {            
+                objLinks[i].onclick = null;
+            }
+    
+            //remove return false link with onclick
+            else if(!xHow && objLinks[i].onclick.toString().indexOf("return false;") != -1)
+            {  
+                strClick = objLinks[i].onclick.toString().getFuncBody().replace("return false;","")
+                objLinks[i].onclick = new Function(strClick);
+            }
+        }
+    }
+    String.prototype.getFuncBody = function(){ 
+    var str=this.toString(); 
+    str=str.replace(/[^{]+{/,"");
+    str=str.substring(0,str.length-1);   
+    str = str.replace(/\n/gi,"");
+    if(!str.match(/\(.*\)/gi))str += ")";
+    return str; 
+
+    function highlight(argument)
+  {
+       document.getElementById("argument").style.border = "thick solid #FF1493";
+  }
+    }
+    </script>
+</head>
+
+<body>
+    <a name = "pyLadies"></a>
+    <div class="ribbon">
+      <a href="https://github.com/pyladies/pyladies">Contribute on GitHub</a>
+    </div>
+    <div class="header">
+        <div id="pyladies_header_logo">
+            <a href="/"><img src="/assets/images/pyladies_logo.png" width="260" height="120" alt="PyLadies Logo"/></a>
+        </div>
+        <nav>
+            <ul class="nav-wrapper">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about/">About</a></li>
+                <li><a href="http://discuss.pyladies.com">Forum</a></li>
+                <li><a href="/locations/">Locations</a></li>
+                <li><a href="/blog/">Blog</a></li>
+                <li><a href="/CodeOfConduct/">Code of Conduct</a></li>
+                <li><a href="/resources/">Resources</a></li>
+                <li><a href="mailto:info@pyladies.com?subject=Hello" id="contact-link">Contact</a></li>
+                <li><a href="http://pyladies.com/feed.xml" title="RSS">RSS</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="page">
+        
+    <h1 id="homepage_h1">Welcome!</h1>
+    <section id="archive">
+        <article class="welcome">
+            <div id="welcome_message">
+                    <h2>Welcome!</h2>
+                    <img src="/assets/images/pylady_geek.png" alt="Pyladies lady graphic" />
+                    <p>We are an international mentorship group with a focus on helping more women become active participants and leaders in the Python open-source community. Our mission is to promote, educate and advance a diverse Python community through outreach, education, conferences, events and social gatherings.</p>
+                    <p>PyLadies also aims to provide a friendly support network for women and a bridge to the larger Python world. Anyone with an interest in Python is encouraged to participate!</p>
+            </div>
+        </article>
+
+        <article class="latest">
+            <h3 class="latest-master">Latest Blog Posts</h3>
+                <div id="latestBlog">
+                    
+                        <h3><a href="/blog/django-resources/">Web Development</a></h3>
+                        <time pubdate datetime="2015-05-03">May 03, 2015</time>
+                        <p><a href="http://www.djangoproject.com/">Django</a> is one of the most popular web frameworks. It&#39;s a great option if you want to use Python to build web apps.  Start with <a href="https://docs.djangoproject.com/en/1.4/intro/tutorial01/">the official Django poll tutorial</a> or the <a href="http://tutorial.djangogirls.org/">Django Girls blog tutorial</a>.  <a href="http://twoscoopspress.com/products/two-scoops-of-django-1-8">Two Scoops of Django: Best Practices For Django 1.8</a> was co-written by a PyLady - don&#39;t hesitate to ask for a free copy if you can&#39;t afford it.  <a href="/blog/django-resources/" class='more-link'>Read more &rarr;</a></p>
+                    
+                        <h3><a href="/blog/pyladies-at-pycon/">A PyLadies-packed PyCon 2015</a></h3>
+                        <time pubdate datetime="2015-03-23">March 23, 2015</time>
+                        <p>Want to pack your PyCon schedule with PyLadies events?  Here are all the details!  <a href="/blog/pyladies-at-pycon/" class='more-link'>Read more &rarr;</a></p>
+                    
+                </div>
+        </article>
+    </section>
+
+
+    </div>
+
+	<div class="sidebar">
+		<!--
+        <div id="mc_embed_signup">
+            <form action="http://pyladies.us2.list-manage1.com/subscribe/post?u=9d20e0bc6bc0e88a076738c6f&amp;id=23e4f35e45" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                <label for="mce-EMAIL">Keep up with what's going in the PyLadies community on our low-volume announcement list.  Men and women from everywhere are welcome.  Unsubscribe anytime. </label>
+                <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+                <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+            </form>
+        </div> 
+    -->
+
+        <div id="sponsor_us_btn"><a href="/sponsor/">Sponsor Us</a></div>
+
+        <div id="shirts_btn" style="display:flex;justify-content:center;align-items:center;font-size:14px;"><a href="http://pyladies.spreadshirt.com/">Get Swag</a></div>
+
+        <div id="stickers_btn" style="display:flex;justify-content:center;align-items:center;font-size:14px;"><a href="https://www.stickermule.com/user/1070441144/stickers">Buy Stickers</a></div>
+
+        <h3>Upcoming Meetups</h3>
+        <div id="upcomingMeetupsList">
+        </div>
+
+        <div id="twitter_feed">
+            <h3>Recent Tweets</h3>
+            <div id="chapter_tweets">
+                <a class="twitter-timeline" href="https://twitter.com/pyladies/lists/pyladies-locations" data-widget-id="635861904234258433">Tweets from https://twitter.com/pyladies/lists/pyladies-locations</a>
+               
+            </div>
+		</div>
+		
+    </div>
+
+    <div class="footer-wrapper">
+            <footer id="bottom">
+			
+                <ul class="social">
+                    <li><a class="icon google-plus" data-icon="&#62223;" href="https://plus.google.com/communities/108807002736066163985" title="Google+"></a></li>
+                    <li><a class="icon github" data-icon="&#62208;" href="http://github.com/pyladies" title="GitHub"></a></li>
+                    <li><a class="icon rss" data-icon="&#59194;" href="http://pyladies.com/feed.xml" title="RSS"></a></li>
+                    <li><a class="icon creative-commons" data-icon="&#128325;" href="http://creativecommons.org/licenses/by-sa/3.0/" title="Creative Commons"></a></li>
+                    <ul class="footer-notice">
+                        <li>2007 - 2015 PyLadies. All Rights Reserved.</li>
+                        <li>Disclaimer - PyLadies and the PyLadies logo are trademarks of the Python Software Foundation</li>
+                    </ul>
+                </ul>
+            
+            </footer>
+    </div>
+</body>
+</html>

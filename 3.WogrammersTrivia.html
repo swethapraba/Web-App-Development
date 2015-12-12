@@ -1,0 +1,375 @@
+<html>
+	<head>
+		<title> Wogrammers Trivia </title>
+		<style>
+			h1
+			{
+				text-align: center;
+				color: white;
+				font-family: Papyrus, fantasy;
+				font-size: 30px;
+			}
+			#who
+			{
+				text-align: center;
+				color: yellow;
+				font-family: Papyrus, fantasy;
+				font-size: 30px;
+			}
+			div
+			{
+				margin: 0 auto;
+				margin-left: auto;
+				margin-right: auto;
+				text-align: center;
+				color: white;
+				font-family: Helvetica Narrow, sans-serif;
+				font-size: 20px;
+			}
+			#triviafact
+			{
+				margin: 0 auto;
+				margin-left: auto;
+				margin-right: auto;
+				text-align:center;
+				color: white;
+				font-family: Helvetica Narrow, sans-serif;
+				font-size: 20px;
+			}
+
+			body
+			{	
+				background-size: cover;
+				background-position: center center;
+				background-repeat: no-repeat;
+				background-attachment:fixed;
+			}
+			p
+			{
+				text-align: center;
+				font-family: Helvetica Narrow, sans-serif;
+				color: white;
+			}
+			table
+			{
+				margin: 0 auto;
+				margin-left: auto;
+				margin-right: auto;
+				text-align: center;
+				background-color: white;
+				color: #800080;
+			}
+
+			span
+			{
+				color: white;
+				font-size: 20px;
+				font-family: Helvetica Narrow, sans-serif;
+				text-align: center;
+			}
+			#submit, #skip, #begin
+			{
+				display: block;
+   			    height: 30px;
+    			width: 150px;
+    			background: #00FFFF;
+				opacity: 0.8;
+				
+				margin: 0 auto;
+				margin-left: auto;
+				margin-right: auto;
+				text-align: center;
+			}
+			#txtAnswer
+			{
+				margin: 0 auto;
+				margin-left: auto;
+				margin-right: auto;
+				text-align: center;
+				height: 40px;
+				width: 300px;
+			}
+		</style>
+		<script type = "text/javascript">
+		var solutions = new Array(
+			["Ada Lovelace"],[" I am an English mathematician and writer, chiefly known for my work on Charles Babbage's early mechanical general-purpose computer, the Analytical Engine"],
+			["Ria Galanos"], ["I sponsor the CLC club at TJHSST"], 
+			["Edith Clarke"],["I specialized in electrical power system analysis and wrote Circuit Analysis of A-C Power Systems"],
+			["Hedy Lamarr"], ["I was an Austrian and American film actress and inventor who helped invent spread-spectrum communication techniques and frequency hopping, which were a necessary part of wireless communication before mainstream computers"], 
+			["Grace Hopper"],["I was an American computer scientist and United States Navy Rear Admiral. I invented the first compiler, was one of the first programmers of the Harvard Mark 1 computer, and am credited with coining the term 'debugging'"], 
+			["Kay McNulty"], ["I was one of the six original programmers of the ENIAC along with Betty Holberton, Marlyn Wescoff, Ruth Lichterman, Jean Jennings, and Fran Bilas."],
+			["Erna Schneider Hoover"],["I was an American mathematician notable for inventing a computerized telephone switching method which revolutionized modern communication"],
+			["Betty Holberton"],["I was one of the six original programmers of ENIAC along with Kay McNulty, Marlyn Wescoff, Ruth Lichterman, Jean Jennings, and Fran Bilas."], 
+			["Jocelyn Goldfein"],["I am the former director of engineering at Facebook"],
+			["Marlyn Wescoff"], ["I was one of the six original programmers of ENIAC along with Betty Holberton, Kay McNulty, Ruth Lichterman, Jean Jennings, and Fran Bilas."],
+			["Radia Perlman"], ["I am most famous for my invention of the spanning-tree protocol, which is fundamental to the operation of network bridges, while working for Digital Equipment Corporation"],
+			["Ruth Lichterman"], ["I was one of the original programmers for the ENIAC computer, along with Kay McNulty, Marlyn Wescoff, Betty Holberton, Jean Jennings, and Fran Bilas."], 
+			["Carol Shaw"], ["I am said to be the first female video game designer. My official job title at Atari was Microprocessor Software Engineer. Later I joined Activision, where I programmed my best-known game, River Raid."],
+			["Jean Jennings"], ["I was one of the original programmers for the ENIAC computer along with Kay McNulty, Marlyn Wescoff, Ruth Lichterman, Betty Holberton, and Fran Bilas"],
+			["Carla Meninsky"], ["I was a video game designer during the early years of the Atari 2600 video game console. Along with Carol Shaw, I was one of two female engineers at Atari to develop video game cartridges released in the early 1980s"],
+			["Fran Bilas"], ["I was one of the original programmers for the ENIAC along with Kay McNulty, Marlyn Wescoff, Ruth Lichterman, Jean Jennings, and Betty Holberton. She is also considered to be one of the first computer programmers in history"],
+			["Jean Sammet"], ["I was an American computer scientist who developed the FORMAC programming language in 1962"],
+			["Roberta Williams"], ["I am an American video game designer, writer and a co-founder of Sierra On-Line, who developed my first game while living in Simi Valley, California"],
+			["Anita Borg"], ["I founded the Institute for Women and Technology and Grace Hopper Celebration of Women in Computing"],
+			["Maria Klawe"],["I am a computer scientist and the fifth president of Harvey Mudd College"],
+			["Eva Tardos"],["I am a Hungarian mathematician and the Jacob Gould Schurman Professor of Computer Science at Cornell University. I received my Dipl.Math in 1981 and my Ph.D. 1984 from Eotvos Lorand University under my advisor Andras Frank."],
+			["Lucy Sanders"],["I am the CEO and Co-founder of the National Center for Women & Information Technology (NCWIT)"],
+			["Padmasree Warrior"], ["I am the former Chief Technology & Strategy Officer of Cisco Systems, and the former CTO of Motorola, Inc. As of 2014, I was listed as the 71st most powerful woman in the world by Forbes"],
+			["Sophie Wilson"], ["I am known for designing the Acorn Micro-Computer, the first of a long line of computers sold by Acorn Computers Ltd, as well as the instruction set of the ARM processor."],
+			["Megan Smith"], ["I am the Chief Technology Officer of the United States and was previously a vice president of Google[x] at Google, and vice president of business development at Google for nine years"],
+			["Mary Lou Jespen"], ["I am an executive at Facebook / Oculus VR and was formerly at Google. I am a Co-founder of One Laptop per Child initiative"],
+			["Frances Allen"], ["I was the first woman awarded the A.M. Turing Award by the Association for Computing Machinery, ACM. I developed the advanced code-breaking language known as Alpha"],
+			["Meg Whitman"],["I am an American business executive and political candidate. I am the chairwoman, president, and chief executive officer of Hewlett-Packard"],
+			["Mary Hawes"], ["I am from Burroughs Corporation and initiated a meeting between users and manufacturers to develop specifications for a common business language, which evolved into what is known today as COBOL (Common Business Oriented Language)."],
+			["Karen Sparck Jones"], ["I am a British computer scientist known for my work on information retrieval and natural language processing, in particular my probabilistic model of document and text retrieval."]) //30
+			var score = 0;
+			var clueCount = 1;
+			var hou = 4;
+			var sec = 59;
+			var timetotal = 300;
+			
+			function addListeners() // FOR RANDOM BUTTON
+			{
+				if(window.addEventListener)
+				{
+					document.getElementById('testing').addEventListener("click",randomness,false);
+				}
+				function randomness()
+				{
+					alert("These clues and facts were adapted from the Ada Project at Carnegie Mellon University!");
+				}
+			}
+		//	document.getElementById('testing').onclick = addListeners;
+			function loaded()
+			{
+				document.getElementById('txtAnswer').focus();
+				refreshID = setInterval(function()
+				{
+    				var a = new Date();
+        			document.getElementById("timer").innerHTML = hou +" : " + pad(sec) ;
+       				sec--;
+        			timetotal--;
+       				if (timetotal == 0)
+            		{
+            			alert("Time is Up!")
+            			setTimeout("timerFired()", 00);
+            		}
+       				if(sec == 00)
+      			  	{
+      			    	hou--;
+            			sec = 60;
+       				 }
+       			 },1000);
+				this.game();
+			}
+			function pad(number)
+			{
+				if(number < 10)
+				{
+					number = ("0" + number).slice(-2);
+				}
+				return number
+			}
+			function game() 
+			{ 
+				if(clueCount < 60)
+				{
+					document.getElementById("clue").innerHTML = solutions[clueCount]; 
+				}
+				if(clueCount > 60)
+				{
+					setTimeout("timerFired()",100);
+				}
+			}
+
+			function showRow(rowId) { document.getElementById(rowId).style.display = ""; }
+			function submission()
+			{
+				var answered = document.getElementById('txtAnswer');
+				if(new String(answered.value).valueOf().indexOf("?") > -1)
+					{
+						showRow(solutions[clueCount-1].valueOf())
+						document.getElementById(solutions[clueCount-1].valueOf()).style.color = "#E35609";
+						clueCount+=2;
+						document.getElementById('txtAnswer').value = "";
+						this.game();
+					}
+				if(new String(answered.value).valueOf().toUpperCase() == new String(solutions[clueCount-1]).valueOf().toUpperCase())
+				{
+					score++;
+					document.getElementById('score').innerHTML = score;
+					showRow(solutions[clueCount-1].valueOf())
+					document.getElementById(solutions[clueCount-1].valueOf()).style.color = "#002BFF";
+					clueCount+=2;
+					document.getElementById('txtAnswer').value = "";
+					this.game();
+				}
+			}
+
+			function timerFired()//DONE
+			{
+				document.getElementById('txtAnswer').style.visibility = "hidden";
+				document.getElementById('submit').style.visibility = "hidden";
+				document.getElementById('clue').style.visibility = "hidden";
+				if(score > 29)
+				{
+					document.getElementById("timer").innerHTML = "0:00" ;
+					document.getElementById('who').innerHTML = "congrats! you won! :)";
+				}
+					
+				else
+				{
+				document.getElementById("timer").innerHTML = "0:00" ;
+				document.getElementById('who').innerHTML = "sorry you lost. Time to do some studying :( " ;
+				window.clearInterval(refreshID);
+				}	
+			}
+		</script>
+		
+	</head>
+	
+	<body onload = "loaded()" background = "3.WogrammersTriviaBackground.jpg";>
+		<a name = "wogrammersTrivia">
+		<h1> Name That Wogrammer! </h1>
+		<p> Who is the wogrammer being described? You have <span id="timer">05:00</span> minutes left. <br> <br>  </p>
+			<p> Type '?' to skip a question. However,you can no longer win  this round since questions will not be repeated </p>
+		<!--<div> <BUTTON id = "begin" type = button accessKey = t onClick = "beginTiming()"> S<U>t</U>art!</BUTTON><br> <br></div>-->
+		
+		<div id= "clue"><p> Test </p> </div>
+		<h1 id = "who"> Who am I? <br> </h1>
+		<div id = "myinputboxdiv"> 
+			<INPUT type= "text" name = "mytext" id = "txtAnswer" oninput = "submission()" style = "display:block;"></INPUT>
+			<p></p>
+		</div>
+		
+		 <span> <BUTTON	id = "submit" type = button accessKey = s onclick = "submission()" style = "display:none;"> <U>S</U>ubmit! </BUTTON> <p></p> </span>
+
+		<p> <br> <br> <br> <br> <br> Your Score: <span id = "score"> 0 </span> <p>
+		
+		<p> Previous Questions: </p>
+		<table>
+			<tr id = "Karen Sparck Jones" style = "display: none;">
+				<td>Karen Sparck Jones </td>
+				<td>I am a British computer scientist known for my work on information retrieval and natural language processing, in particular my probabilistic model of document and text retrieval.</td>
+			</tr>
+			<tr id = "Mary Hawes" style = "display: none;">
+				<td>Mary Hawes </td>
+				<td>I am from Burroughs Corporation and initiated a meeting between users and manufacturers to develop specifications for a common business language, which evolved into what is known today as COBOL (Common Business Oriented Language).</td>
+			</tr>
+			<tr id = "Meg Whitman" style = "display: none;">
+				<td>Meg Whitman </td>
+				<td>I am an American business executive and political candidate. I am the chairwoman, president, and chief executive officer of Hewlett-Packard</td>
+			</tr>
+			<tr id = "Frances Allen" style = "display: none;">
+				<td>Frances Allen </td>
+				<td>I was the first woman awarded the A.M. Turing Award by the Association for Computing Machinery, ACM. I developed the advanced code-breaking language known as Alpha</td>
+			</tr>
+			<tr id = "Mary Lou Jespen" style = "display: none;">
+				<td>Mary Lou Jespen </td>
+				<td>I am an executive at Facebook / Oculus VR and was formerly at Google. I am a Co-founder of One Laptop per Child initiative</td>
+			</tr> 
+			<tr id = "Megan Smith" style = "display: none;">
+				<td>Megan Smith </td>
+				<td>I am the Chief Technology Officer of the United States and was previously a vice president of Google[x] at Google, and vice president of business development at Google for nine years</td>
+			</tr>
+			<tr id = "Sophie Wilson" style = "display: none;">
+				<td>Sophie Wilson </td>
+				<td>II am known for designing the Acorn Micro-Computer, the first of a long line of computers sold by Acorn Computers Ltd, as well as the instruction set of the ARM processor.</td>
+			</tr>
+			<tr id = "Padmasree Warrior" style = "display: none;">
+				<td>Padmasree Warrior </td>
+				<td>I am the former Chief Technology & Strategy Officer of Cisco Systems, and the former CTO of Motorola, Inc. As of 2014, I was listed as the 71st most powerful woman in the world by Forbes</td>
+			</tr>
+			<tr id = "Lucy Sanders" style = "display: none;">
+				<td>Lucy Sanders </td>
+				<td>I am the CEO and Co-founder of the National Center for Women and Information Technology (NCWIT)</td>
+			</tr>
+			<tr id = "Eva Tardos" style = "display: none;">
+				<td>Eva Tardos </td>
+				<td>I am a Hungarian mathematician and the Jacob Gould Schurman Professor of Computer Science at Cornell University. I received my Dipl.Math in 1981 and my Ph.D. 1984 from Eotvos Lorand University under my advisor Andras Frank.</td>
+			</tr>
+			<tr id = "Maria Klawe" style = "display: none;">
+				<td>Maria Klawe </td>
+				<td>I am a computer scientist and the fifth president of Harvey Mudd College</td>
+			</tr>
+			<tr id = "Anita Borg" style = "display: none;">
+				<td>Anita Borg </td>
+				<td>I founded the Institute for Women and Technology and Grace Hopper Celebration of Women in Computing</td>
+			</tr>
+			<tr id = "Roberta Williams" style = "display: none;">
+				<td>Roberta Williams </td>
+				<td>I am an American video game designer, writer and a co-founder of Sierra On-Line, who developed my first game while living in Simi Valley, California</td>
+			</tr>
+			<tr id = "Jean Sammet" style = "display: none;">
+				<td>Jean Sammet </td>
+				<td>I was an American computer scientist who developed the FORMAC programming language in 1962</td>
+			</tr>
+			<tr id = "Fran Bilas" style = "display: none;">
+				<td>Fran Bilas </td>
+				<td>I was one of the original programmers for the ENIAC along with Kay McNulty, Marlyn Wescoff, Ruth Lichterman, Jean Jennings, and Betty Holberton. She is also considered to be one of the first computer programmers in history</td>
+			</tr>
+			<tr id = "Carla Meninsky" style = "display: none;">
+				<td>Carla Meninsky </td>
+				<td>I was a video game designer during the early years of the Atari 2600 video game console. Along with Carol Shaw, I was one of two female engineers at Atari to develop video game cartridges released in the early 1980s</td>
+			</tr>
+			<tr id = "Jean Jennings" style = "display: none;">
+				<td>Jean Jennings </td>
+				<td> I was one of the original programmers for the ENIAC computer along with Kay McNulty, Marlyn Wescoff, Ruth Lichterman, Betty Holberton, and Fran Bilas</td>
+			</tr>
+			<tr id = "Carol Shaw" style = "display: none;">
+				<td>Carol Shaw </td>
+				<td>I am said to be the first female video game designer. My official job title at Atari was Microprocessor Software Engineer. Later I joined Activision, where I programmed my best-known game, River Raid.</td>
+			</tr>
+			<tr id = "Ruth Lichterman" style = "display: none;">
+				<td>Ruth Lichterman </td>
+				<td>I was one of the original programmers for the ENIAC computer, along with Kay McNulty, Marlyn Wescoff, Betty Holberton, Jean Jennings, and Fran Bilas.</td>
+			</tr>
+			<tr id = "Radia Perlman" style = "display: none;">
+				<td>Radia Perlman </td>
+				<td>I am most famous for my invention of the spanning-tree protocol, which is fundamental to the operation of network bridges, while working for Digital Equipment Corporation</td>
+			</tr>
+			<tr id = "Marlyn Wescoff" style = "display: none;">
+				<td>Marlyn Wescoff </td>
+				<td>I was one of the six original programmers of ENIAC along with Betty Holberton, Kay McNulty, Ruth Lichterman, Jean Jennings, and Fran Bilas.</td>
+			</tr>
+			<tr id = "Jocelyn Goldfein" style = "display: none;">
+				<td>Jocelyn Goldfein</td>
+				<td>Former director of engineering at Facebook</td>
+			</tr>
+			<tr id = "Betty Holberton" style = "display: none;">
+				<td>Betty Holberton </td>
+				<td>I was one of the six original programmers of ENIAC along with Kay McNulty, Marlyn Wescoff, Ruth Lichterman, Jean Jennings, and Fran Bilas.</td>
+			</tr>
+			<tr id = "Erna Schneider Hoover" style = "display: none;">
+				<td>Erna Schneider Hoover </td>
+				<td>I was an American mathematician notable for inventing a computerized telephone switching method which revolutionized modern communication</td>
+			</tr>
+			<tr id = "Kay McNulty" style = "display: none;">
+				<td>Kay McNulty </td>
+				<td>I was one of the six original programmers of the ENIAC along with Betty Holberton, Marlyn Wescoff, Ruth Lichterman, Jean Jennings, and Fran Bilas.</td>
+			</tr>
+			<tr id = "Grace Hopper" style = "display: none;">
+				<td>Grace Hopper </td>
+				<td > I was an American computer scientist and United States Navy Rear Admiral. I invented the first compiler, was one of the first programmers of the Harvard Mark 1 computer, and am credited with coining the term debugging.</td>
+			</tr>
+			<tr id = "Hedy Lamarr" style = "display: none;">
+				<td>Hedy Lamarr </td>
+				<td >I was an Austrian and American film actress and inventor who helped invent spread-spectrum communication techniques and frequency hopping, which were a necessary part of wireless communication before mainstream computers</td>
+			</tr>
+			<tr id = "Edith Clarke" style = "display: none;">
+				<td>Edith Clarke: </td>
+				<td>I specialized in electrical power system analysis and wrote Circuit Analysis of A-C Power Systems</td>
+			</tr>
+			<tr id = "Ria Galanos" style = "display: none;">
+				<td>Ria Galanos: </td>
+				<td >I sponsor the CLC club at TJHSST</td>
+			</tr>
+			<tr id = "Ada Lovelace" style = "display: none;" >
+				 <td> Ada Lovelace: </td> 
+				 <td> I am an English mathematician and writer, chiefly known for my work on Charles Babbage's early mechanical general-purpose computer, the Analytical Engine </td>
+			</tr>
+		</table>
+		<div> 
+			<BUTTON id = 'testing' type = button accessKey = k onclick = "addListeners()" style = "display: none;"> <U>k</U> Click Me once to addListeners, and future clicks show you my information sources! </BUTTON> <p></p> </div>
+	</body>
+</html>
